@@ -1,121 +1,121 @@
-# SecureDocStorage
 
-A version-controlled document storage API built with ASP.NET Core web api and Entity Framework. Supports multiple revisions per file and intuitive retrieval through RESTful endpoints.
 
----
+	**Secure Document Storage System**
+A secure ASP.NET Core Web API project that allows registered users to upload, retrieve, and version
+documents. All files are stored as BLOBs in a SQL Server database, and endpoints are protected using JWT authentication.
 
-##  Features
+**Company Task Requirements (Covered)**
+-	User registration & login with JWT
+-	Upload documents with automatic version control
+-	Retrieve latest or specific file versions
+-	Use SQL Server and store files as BLOBs
+-	Swagger API documentation
+-	Protect endpoints using [Authorize]
+	Technologies Used
+-	ASP.NET Core Web API
+-	Entity Framework Core
+-	SQL Server
+-	JWT Authentication
+-	Swagger
+-	 C#
+-	 Visual Studio 2022
 
-- Upload documents with automatic versioning.
--  Retrieve the latest or any historical version.
--  Simple API interface.
--  Easily extensible for cloud storage (e.g., Azure Blob).
+**	Setup Instructions**
+1.	Clone the repository**
 
----
+git clone https://github.com/your-username/SecureDocStorage.git cd SecureDocStorage
+2.	Open in Visual Studio 2022**
 
-## 🛠️ Setup Instructions
+3.	Set up database**
 
-### Prerequisites
+-Open `appsettings.json` and update the connection string:
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- SQL Server 
- Postman or Swagger UI for testing
--installation
-microsoft.entityframeworkcore.tools
-microsoft.entityframeworkcore.sqlserver
-microsoft.aspnetcore.authentication.jwtbearer
-### Clone and Run
 
-```bash
-git clone https://github.com/devkardipali95/SecureDocStorage.git
-cd SecureDocumentStorage
-update-database
-dotnet run
-## Testing Instructions
+"ConnectionStrings": {
+"DefaultConnection": "Server=YOUR_SERVER;Database=SecureDocStorageDB;Trusted_Connection=True;"
 
-Application will be available at:
-Access API at:
-https://localhost:5001/api/
-🔗 https://localhost:5001
-1. User Registration & Login
-➕ Register a new user
-POST /api/auth/register
-Body (JSON):
-
-{
-  "username": "john",
-  "password": "StrongP@ssword123"
 }
-Expected:
- 200 OK — "User registered successfully."
- 400 Bad Request — "User already exists."
 
-🔑 Login
-POST /api/auth/login
-Body (JSON):
+4.	Apply EF Core Migrations**
+-	In Package Manager Console: Update-Database
+5.	Run the application**
+-	Press `F5` in Visual Studio or run: dotnet run
 
-
-{
-  "username": "john",
-  "password": "StrongP@ssword123"
-}
-Expected:
- 200 OK
+**	API Documentation**
+Swagger enabled and available 
+at:https://localhost:{port}/swagger
 
 
-{
-  "token": "<JWT-TOKEN>"
-}
-Copy the token and set it in Postman:
+**	Authentication**
+Method	Endpoint	Description
+POST  	| `/api/auth/register	Register user
+
+POST  	/api/auth/login	once i Login then generate token
 
 
-Authorization: Bearer <JWT-TOKEN>
- 2. Upload Document
-POST /api/document/upload
-Headers:
 
 
-Authorization: Bearer <JWT-TOKEN>
-Content-Type: multipart/form-data
-Body (form-data):
+
+**	Document Management**
+Method	Endpoint	Description
+POST  	`/api/document/upload	Upload new document
+GET       	`/api/document/{filename}`	Get latest version of a document  
+GET	`/api/document/{filename}?revision=0`	Get specific version by revision  
+
+All document routes require a Bearer token: 
+Authorization:Bearer {your-token}
+
+Testing Instructions
+
+**	Using Swagger**
+
+1.	Register & login via Swagger
+2.	Copy JWT token and click **Authorize**
+3.	Upload a document using `/api/document/upload`
+4.	Retrieve it using:
+-	`/api/document/sample.pdf` Latest
+-	`/api/document/sample.pdf?revision=0` First version
 
 
-Key: file
-Value: (choose any file)
-Expected:
-✅ 200 O
-{
-  "message": "File uploaded successfully.",
-  "document": "filename.ext",
-  "version": 0
-}
-Re-uploading the same file gives version: 1, 2, etc.
-
- 3. Download Document
- Latest Version
-GET /files/filename.ext
-Header:
-Authorization: Bearer <JWT-TOKEN>
-
-Returns file stream if found.
-
- Specific Revision
-GET /files/filename.ext?revision=1
-Returns the specified revision if it exists.
 
 
-Download Latest Version
-Endpoint: GET /files/sample.pdf
-Returns: Latest version of sample.pdf
+**	Using Postman**
 
- Download Specific Version
-Endpoint: GET /files/sample.pdf?revision=0
-Returns: First uploaded version of sample.pdf
+1.	Register and login
+2.	Set `Authorization: Bearer {token}` in headers
+3.	Use form-data to upload a file under key `file`
 
 
-AI Tools Used
-ChatGPT 4 – Design, architecture, code assistance
-GitHub Copilot – Code auto-suggestions
+
+
+**	AI Tools Used**
+       
+ChatGPT For
+-	Structuring API routes
+-	Writing secure file upload logic
+-	Swagger setup
+
+
+**	Author**
+                   Dipali Devkar*
+                  Jobfolio.dip@gmail.com
+
+
+
+ 
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+
 
 
 
