@@ -1,5 +1,4 @@
 # SecureDocStorage
-#  Secure Document Storage System
 
 A version-controlled document storage API built with ASP.NET Core web api and Entity Framework. Supports multiple revisions per file and intuitive retrieval through RESTful endpoints.
 
@@ -35,6 +34,8 @@ dotnet run
 ## Testing Instructions
 
 Application will be available at:
+Access API at:
+https://localhost:5001/api/
 🔗 https://localhost:5001
 1. User Registration & Login
 ➕ Register a new user
